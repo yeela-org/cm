@@ -31,6 +31,7 @@ automations:
     if:
       - {{ not has.jira_ticket }}
       - {{ not is.dependabot }}
+      - false
     run:
       - action: add-label@v1
         args:
