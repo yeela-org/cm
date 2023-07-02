@@ -1,0 +1,14 @@
+manifest:
+  version: 1.0
+
+automations:
+  pr_title:
+    if: 
+      - {{ pr.title | includes(term='yeela') }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            title changed !
+            
+          
