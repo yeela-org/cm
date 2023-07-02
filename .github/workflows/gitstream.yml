@@ -30,7 +30,7 @@ on:
         required: false
         default: ''
       debug_mode:
-        description: debug mode
+        description: Optional resolver token for resolver service
         required: false
         default: true
 
@@ -41,7 +41,7 @@ jobs:
     name: gitStream workflow automation
     steps:
       - name: Evaluate Rules
-        uses: linear-b/gitstream-github-action@yeela
+        uses: linear-b/gitstream-github-action@v1
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
