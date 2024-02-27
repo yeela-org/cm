@@ -33,7 +33,7 @@ automations:
           label: "small"
           color: {{ color.small }}
 
-  size-labeling-medium:
+  size-labeling-medium_1:
     if:
       - {{ size.is.medium }}
     run:
