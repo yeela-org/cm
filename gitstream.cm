@@ -3,6 +3,12 @@
 # View the gitStream quickstart for more examples: https://docs.gitstream.cm/quick-start/
 manifest:
   version: 1.0
+
+config:
+  ignore_repositories:
+    - someNonExistRepo
+    - ^someregx*/\
+
 automations:
   # Add a label that indicates how many minutes it will take to review the PR.
   estimated_time_to_review: 
