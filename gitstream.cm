@@ -7,7 +7,7 @@ manifest:
 config:
   ignore_repositories:
     - someNonExistRepo
-#    - r/^\s*(pasha2)$/
+    - r/^\s*(pasha)$/
 
 automations:
   # Add a label that indicates how many minutes it will take to review the PR.
