@@ -5,7 +5,7 @@ manifest:
   version: 1.0
 
 config:
-  ignore_repositories:
+  iclude_repositories:
     - pasha
 
 automations:
