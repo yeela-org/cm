@@ -4,7 +4,7 @@ manifest:
   version: 1.0
 
 automations:
-  review with_check:
+  review_with_check:
     if:
       - true
     run:
@@ -13,7 +13,7 @@ automations:
           reviewers: [EladKohavi]
           wait_for_all_checks: true
       
-  catch deprecated_1:
+  catch_deprecated_1:
     if:
       - false
     run:
