@@ -24,6 +24,7 @@ automations:
   check_lables: 
     if:
       -  true
+    run:
       - action: add-label@v1
         args:
           label: "🎖️"
