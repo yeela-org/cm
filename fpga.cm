@@ -21,3 +21,10 @@ automations:
         args:
           comment: |
             deprecated
+  check_lables: 
+    if:
+      -  true
+      - action: add-label@v1
+        args:
+          label: "🎖️"
+          color: FFFECB
