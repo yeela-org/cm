@@ -22,7 +22,7 @@ manifest:
 
 config:
   ignore_repositories:
-    - Pasha2
+    - Pasha
 
 # +----------------------------------------------------------------------------+
 # | Automations
