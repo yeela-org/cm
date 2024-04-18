@@ -2,6 +2,9 @@
 
 manifest:
   version: 1.0
+config:
+  ignore_repositories:
+    - Pasha
 
 automations:
   review_with_check:
