@@ -2,9 +2,6 @@
 
 manifest:
   version: 1.0
-config:
-  ignore_repositories:
-    - pasha
 
 automations:
   review_with_check:
@@ -24,7 +21,9 @@ automations:
         args:
           comment: |
             deprecated
-  check_lables: 
+  check_lables:
+    on:
+      - comment_added
     if:
       -  true
     run:
