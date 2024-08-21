@@ -47,6 +47,8 @@ jobs:
       JIRA_USER: ${{ secrets.JIRA_USER }}
       UI_GUILD_SLACK_WEBHOOK: ${{ secrets.UI_GUILD_SLACK_WEBHOOK }}
       LINEARB_METRICS_API_KEY: ${{ secrets.LINEARB_METRICS_API_KEY }}
+      ENABLE_DEBUG_ARTIFACTS: true
+      ENABLE_CACHE: true
     steps:
       - name: Evaluate Rules
         uses: linear-b/gitstream-github-action@linbee-10093-fix
