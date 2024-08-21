@@ -49,7 +49,7 @@ jobs:
       LINEARB_METRICS_API_KEY: ${{ secrets.LINEARB_METRICS_API_KEY }}
     steps:
       - name: Evaluate Rules
-        uses: linear-b/gitstream-github-action@v2
+        uses: linear-b/gitstream-github-action@linbee-10093-fix
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
