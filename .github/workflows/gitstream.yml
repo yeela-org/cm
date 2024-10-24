@@ -2,7 +2,7 @@
 
 name: gitStream workflow automation
 run-name: |
-  /:\ gitStream: PR #${{ fromJSON(fromJSON(github.event.inputs.client_payload)).pullRequestNumber }} from ${{ github.event.inputs.full_repository }}
+  /:\ gitStream: PR #${{ fromJSON(fromJSON(github.event.inputs.client_payload)).pullRequestNumber }} from ${{ github.event.inputs.full_repository }}. Cache: ${{ fromJSON(fromJSON(inputs.client_payload)).isNonCommitEvent }}. Run-id: ${{ fromJSON(fromJSON(inputs.client_payload)).artifactRunId }} 
 
 on:
   workflow_dispatch:
@@ -26,13 +26,13 @@ on:
           description: the resolver url to pass results to
           required: true
       resolver_token:
-          description: Optional resolver token for resolver service
+          description: Optional resolver token for resulver service
           required: false
           default: ''
       debug_mode:
-          description: Debug mode
+          description: Run parser in debug mode
           required: false
-          default: false
+          default: true
 
 jobs:
   gitStream:
@@ -40,18 +40,12 @@ jobs:
     runs-on: ubuntu-latest
     name: gitStream workflow automation
     env:
-      SLACK_LINEAR_BEEHIVE_WEBHOOK: ${{ secrets.SLACK_LINEAR_BEEHIVE_WEBHOOK }}
-      SLACK_TEAM_FLARE_WEBHOOK: ${{ secrets.SLACK_TEAM_FLARE_WEBHOOK }}
-      JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      JIRA_URL: ${{ secrets.JIRA_URL }}
-      JIRA_USER: ${{ secrets.JIRA_USER }}
-      UI_GUILD_SLACK_WEBHOOK: ${{ secrets.UI_GUILD_SLACK_WEBHOOK }}
-      LINEARB_METRICS_API_KEY: ${{ secrets.LINEARB_METRICS_API_KEY }}
+      SLACK_DEV_WEBHOOK: ${{ secrets.SLACK_DEV_WEBHOOK }}
       ENABLE_DEBUG_ARTIFACTS: true
-      ENABLE_CACHE: true
+      ENABLE_CACHE: false
     steps:
       - name: Evaluate Rules
-        uses: linear-b/gitstream-github-action@v2
+        uses: linear-b/gitstream-github-action@LINBEE-11635
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
@@ -61,3 +55,4 @@ jobs:
           installation_id: ${{ github.event.inputs.installation_id }}
           resolver_url: ${{ github.event.inputs.resolver_url }}
           resolver_token: ${{ github.event.inputs.resolver_token }}
+          debug_mode: true
