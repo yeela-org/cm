@@ -5,15 +5,12 @@ manifest:
 triggers:
   exclude:
     repository:
-      - pasha2
+      - pasha
 
 automations:
   DCF5-pr-reviewed:
-    on:
-      - merge
     if:
-      - {{ branch.base == "main" }}
-      - {{ pr.approvals | length == 0 }}
+      - true
     run:
       - action: add-label@v1
         args:
