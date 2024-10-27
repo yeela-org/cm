@@ -4,23 +4,18 @@ manifest:
 
 triggers:
   exclude:
-    branch:
-      - r/renovate/
+    repository:
+      - pasha
 
 automations:
-  safe-changes:
+  DCF5-pr-reviewed:
+    on:
+      - merge
     if:
-      - true
+      - {{ branch.base == "main" }}
+      - {{ pr.approvals | length == 0 }}
     run:
       - action: add-label@v1
         args:
-          label: 'safe-changes'
-      - action: approve@v1
-
-  senior_review:
-    if:
-      - {{ pr.title | includes(regex=r/Elad/) }}
-    run:
-      - action: require-reviewers@v1
-        args:
-          reviewers: [MishaKav]
+          label: "DCF5-merge-without-approve"
+          color: 'F6443B'
