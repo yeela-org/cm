@@ -6,12 +6,9 @@ automations:
     if:
       - true
     run:
-      - action: add-reviewers@v1
-        args:
-          reviewers: [<org-name>/qa]
       - action: require-reviewers@v1
         args:
-          reviewers: [<org-name>/qa]
+          reviewers: [EladKohavi]]
           also_assign: false
   explain_code_experts:
     if:
