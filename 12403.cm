@@ -1,0 +1,22 @@
+manifest:
+    version: 1.0
+
+automations:
+  qa_required_approval:
+    if:
+      - true
+    run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: [<org-name>/qa]
+      - action: require-reviewers@v1
+        args:
+          reviewers: [<org-name>/qa]
+          also_assign: false
+  explain_code_experts:
+    if:
+      - true
+    run:
+      - action: explain-code-experts@v1 
+        args:
+          gt: 10 
