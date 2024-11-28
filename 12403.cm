@@ -8,7 +8,7 @@ automations:
     run:
       - action: require-reviewers@v1
         args:
-          reviewers: [EladKohavi]]
+          reviewers: [EladKohavi]
           also_assign: false
   explain_code_experts:
     if:
