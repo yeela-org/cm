@@ -6,13 +6,13 @@ automations:
     if:
       - true
     run:
+      - action: add-reviewers@v1
+        args:
+          reviewers: [EladKohavi]
       - action: require-reviewers@v1
         args:
           reviewers: [EladKohavi]
           also_assign: false
-      - action: add-reviewers@v1
-        args:
-          reviewers: [EladKohavi]
   explain_code_experts:
     if:
       - true
