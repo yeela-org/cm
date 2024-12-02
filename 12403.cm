@@ -10,6 +10,9 @@ automations:
         args:
           reviewers: [EladKohavi]
           also_assign: false
+      - action: add-reviewers@v1
+        args:
+          reviewers: [EladKohavi]
   explain_code_experts:
     if:
       - true
