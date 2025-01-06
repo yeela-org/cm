@@ -10,3 +10,13 @@ automations:
         args:
           comment: |
             comment 1
+  code_experts:
+    if:
+      - true
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            {{ repo | codeExperts(gt=10) }}
+
+
