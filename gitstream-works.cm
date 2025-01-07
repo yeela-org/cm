@@ -4,7 +4,7 @@ manifest:
 automations:
   just_comment_1:
     if: 
-      - true
+      - {{ files | match(list=['src', 'dest']) | nope }}
     run:
       - action: add-comment@v1
         args:
