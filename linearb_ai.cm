@@ -24,8 +24,6 @@ automations:
              - [ ] Good Enough
              - [ ] Needs Improvement
   pr_description_by_linearb_ai:
-    on:
-      - pr_created
     if:
       - {{ pr.author != 'dependabot' }}
       - {{ pr.author != 'github-actions' }}
