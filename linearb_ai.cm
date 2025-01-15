@@ -23,6 +23,22 @@ automations:
              - [ ] Excellent
              - [ ] Good Enough
              - [ ] Needs Improvement
+  pr_description_by_linearb_ai:
+    on:
+      - pr_created
+    if:
+      - {{ pr.author != 'dependabot' }}
+      - {{ pr.author != 'github-actions' }}
+      - {{ pr.author != 'bot' }}
+    run:
+      - action: update-description@v1
+        args:
+          concat_mode: append
+          description: |
+            
+            ___
+            ### PR Description by LinearB_AI('Describe PR')
+            {{ source | LinearB_AI(prompt=PR_DESCRIPTION_PROMT) }}
 
 
 HAS_LB_CR_LABEL: {{ pr.labels | match(term="LB CR") | some }}
