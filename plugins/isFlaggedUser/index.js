@@ -8,4 +8,6 @@ function isFlaggedUser(username) {
     }
 };
 
-module.exports = isFlaggedUser;
+module.exports = {
+  filter: isFlaggedUser
+};
