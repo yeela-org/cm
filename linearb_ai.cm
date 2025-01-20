@@ -25,9 +25,7 @@ automations:
              - [ ] Needs Improvement
   pr_description_by_linearb_ai:
     if:
-      - {{ pr.author != 'dependabot' }}
-      - {{ pr.author != 'github-actions' }}
-      - {{ pr.author != 'bot' }}
+      - true
     run:
       - action: update-description@v1
         args:
