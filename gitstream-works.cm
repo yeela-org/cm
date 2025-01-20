@@ -25,3 +25,12 @@ automations:
       - action: explain-code-experts@v1
         args:
           gt: 10
+  add_to_title:
+    if:
+      - true
+    run:
+      - action: update-title@v1
+        args:
+          concat_mode: prepend
+          title: |
+            gitstream `koko` - 
