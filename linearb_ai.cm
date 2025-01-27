@@ -11,14 +11,13 @@ automations:
       - action: update-description@v1
         args:
           concat_mode: append
-          description: {{ source | LinearB_AI }}
+          description: {{ source | AI_DescribePR }}
 
-            **Please rate this `LinearB_AI` description:**
+            **Please rate this `AI_DescribePR` description:**
             - [ ] Excellent
             - [ ] Good Enough
             - [ ] Needs Improvement
 
-HAS_LB_CR_LABEL: {{ pr.labels | match(term="LB CR") | some }}
 
 PR_REVIEW_PROMT: |
   Perform a detailed code review based on the provided code diff. For each modified file:
