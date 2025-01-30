@@ -34,3 +34,8 @@ automations:
           concat_mode: prepend
           title: |
             gitstream `koko` - 
+  small_change:
+    if:
+      - true
+    run:
+      - action: approve@v1
