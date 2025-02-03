@@ -4,18 +4,17 @@
 manifest:
   version: 1.0
 
-
 automations:
   # Add tiger to the PR title
   add_tiger_to_title:
     if:
-      - {{ pr.title | includes(term=🐅) | none }}
+      - not ("🐅" in pr.title or "🐯" in pr.title)
     run:
       - action: update-title@v1
         args:
           concat_mode: prepend
           title: |
-            🐅 -
+            '🐅 -'
   small_change:
     if:
       - true
