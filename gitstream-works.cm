@@ -1,39 +1,21 @@
+# -*- mode: yaml -*-
+# This example configuration for provides basic automations to get started with gitStream.
+# View the gitStream quickstart for more examples: https://docs.gitstream.cm/examples/
 manifest:
-    version: 1.0
+  version: 1.0
+
 
 automations:
-  just_comment_1:
-    if: 
-      - {{ files | match(list=['src', 'dest']) | nope }}
-    run:
-      - action: add-comment@v1
-        args:
-          comment: |
-            comment 1
-  code_experts:
+  # Add tiger to the PR title
+  add_tiger_to_title:
     if:
-      - true
-    run:
-      - action: add-comment@v1
-        args:
-          comment: |
-            {{ repo | codeExperts(gt=10) }}
-  explain_code_experts:
-    if:
-      - true
-    run:
-      - action: explain-code-experts@v1
-        args:
-          gt: 10
-  add_to_title:
-    if:
-      - true
+      - {{ pr.title | includes(term=🐅) | none }}
     run:
       - action: update-title@v1
         args:
           concat_mode: prepend
           title: |
-            gitstream `koko` - 
+            🐅 -
   small_change:
     if:
       - true
