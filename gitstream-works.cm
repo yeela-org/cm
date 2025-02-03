@@ -5,7 +5,7 @@ automations:
   # Add tiger to the PR title
   add_tiger_to_title:
     if:
-      - not ("🐅" in pr.title or "🐯" in pr.title)
+      - not (🐅 in pr.title)
       - {{ pr.author | includes(term=yeelali14) }}
     run:
       - action: update-title@v1
