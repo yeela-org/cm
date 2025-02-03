@@ -4,6 +4,8 @@ manifest:
 automations:
   # Add tiger to the PR title
   add_tiger_to_title:
+    on:
+      - pr_created 
     if:
       - not (🐅 in pr.title)
       - {{ pr.author | includes(term='yeelali14') }}
