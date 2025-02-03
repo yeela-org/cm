@@ -14,7 +14,7 @@ automations:
         args:
           concat_mode: prepend
           title: |
-            '🐅 -'
+            🐅 -
   small_change:
     if:
       - true
