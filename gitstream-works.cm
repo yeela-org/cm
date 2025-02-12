@@ -7,7 +7,7 @@ automations:
     on:
       - pr_created 
     if:
-      - not (🐅 in pr.title)
+      - {{ not (🐯 in pr.title) }}
       - {{ pr.author | includes(term='yeelali14') }}
     run:
       - action: update-title@v1
