@@ -3,7 +3,7 @@ manifest:
 
 config:
   admin:
-    users: ['linearb']
+    users: ['yeelali14']
 
 automations:
   multi_org_check:
