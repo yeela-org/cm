@@ -9,4 +9,4 @@ automations:
       - action: explain-code-experts@v1
         args:
           gt: 10
-          since: '2025-07-01'
+          since: '2025-01-01'
