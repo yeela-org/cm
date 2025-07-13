@@ -45,7 +45,8 @@ jobs:
       ENABLE_CACHE: false
     steps:
       - name: Evaluate Rules
-        uses: linear-b/gitstream-github-action@LINBEE-17659-4
+        # LINBEE-17659-4
+        uses: linear-b/gitstream-github-action@v2-misha
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
