@@ -1,6 +1,9 @@
 manifest:
   version: 1.0
 
+config:
+  git_blame_since: '2025-07-01'
+
 automations:
   code_experts:
     if:
@@ -9,4 +12,3 @@ automations:
       - action: explain-code-experts@v1
         args:
           gt: 10
-          since: '2020-01-01'
