@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Evaluate Rules
         # LINBEE-17659-4
-        uses: linear-b/gitstream-github-action@v2
+        uses: linear-b/gitstream-github-action@v2-misha
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
