@@ -12,7 +12,7 @@ automations:
       - action: code-review@v1
         args:
           approve_on_LGTM: true
-          issues_limit: 2
+          issues_limit: unlimited
 
   linearb_ai_description:
     if:
