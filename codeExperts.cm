@@ -1,7 +1,5 @@
 manifest:
   version: 1.0
-on:
-  - merge
 
 config:
   git_blame_since: '2026-07-01'
