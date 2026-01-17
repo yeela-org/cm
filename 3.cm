@@ -1,0 +1,70 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+triggers:
+  include:
+    repository:
+      - be-workflows-sample-service
+
+automations:
+  # 1) Flag PRs where any commit message does NOT follow Conventional Commits
+  cc_enforce:
+    # Re-evaluate on new commits and PR updates
+    if:
+      # Skip drafts and obvious bots/noise branches
+      - {{ not pr.draft }}
+      - {{ not (is.bot_author or is.bot_branch) }}
+      # Any commit whose subject doesn't match the CC regex
+      - {{ not has.all_commits_conventional }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            **Conventional Commits required**
+            
+            One or more commits in this PR don’t follow the Conventional Commits spec.
+            
+            **Subject format**
+            ```
+            <type>[optional scope]: <description>
+            ```
+            Allowed types: `feat`, `fix`, `build`, `chore`, `ci`, `docs`, `perf`, `refactor`, `revert`, `style`, `test`
+            
+            See the spec: https://www.conventionalcommits.org/en/v1.0.0/
+            
+            **Local Validation with Pre-Commit**
+            
+            1. [Install](https://pre-commit.com/#install) pre-commit
+            2. Add a `.pre-commit-config.yaml`
+            ```yaml
+            repos:
+              - repo: https://github.com/compilerla/conventional-pre-commit
+                rev: v4.2.0
+                hooks:
+                  - id: conventional-pre-commit
+                    stages: [commit-msg]
+                    args: [--verbose]
+            default_install_hook_types: [ commit-msg ]
+            ```
+            3. [Install](https://pre-commit.com/#usage) the git hook
+
+      - action: add-label@v1
+        args:
+          label: conventional-commits:fail
+
+# ----------------- Helpers -----------------
+is:
+  bot_author: {{ pr.author | match(list=['github-actions', 'dependabot', 'gitstream-cm']) | some }}
+  bot_branch: {{ branch.name | match(list=['dependabot/']) | some }}
+
+# Conventional Commits compliance across ALL commit messages in the PR.
+# We check the entire message string; the regex validates the SUBJECT (first line) shape.
+has:
+  # Matches subject line like: type(scope)!?: short summary
+  # (We only care that the message STARTS with a valid subject; body/footers are allowed below.)
+  conventional_regex: "r/^(feat|fix|build|chore|ci|docs|perf|refactor|revert|style|test)(\\([^)]+\\))?!?:\\s[^\\n]+/"
+  merge_regex: "r/^Merge/"
+
+  # Every non-merge commit message begins with a Conventional Commit subject
+  all_commits_conventional: {{ branch.commits.messages | reject(regex=has.merge_regex) | match(regex=has.conventional_regex) | every }}
