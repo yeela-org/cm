@@ -15,7 +15,8 @@ automations:
   pr_comment:
     if:
       - {{ is.automated_update }}
-      - {{ is.blocked_by_policy_violation }} 
+      - {{ is.blocked_
+by_policy_violation }} 
     run:
       - action: add-comment@v1
         args:
