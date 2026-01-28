@@ -1,0 +1,45 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+automations:
+  validate_pr_titles_success:
+    if:
+      - {{ pr.title | includes(regex=r/^(Release:.*|((feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)(\([^)]+\))?!?:\s*\[[A-Z]+-\d+(?:-[A-Z]+-\d+)*\]\s+.+)|feat\(release\):\s*merge\s+[\w\/\.-]+\s+into\s+[\w\/\.-]+)$/) }}
+    run:
+      - action: add-github-check@v1
+        args:
+          check_name: validation-pr-title
+          conclusion: success
+  validate_pr_title_failure:
+    if:
+      - {{ not (pr.title | includes(regex=r/^(Release:.*|((feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)(\([^)]+\))?!?:\s*\[[A-Z]+-\d+(?:-[A-Z]+-\d+)*\]\s+.+)|feat\(release\):\s*merge\s+[\w\/\.-]+\s+into\s+[\w\/\.-]+)$/)) }}
+    run:
+      - action: add-comment@v1
+        args:
+          comment: |
+            ✋ Please format your PR title according to the [GitHub Guidelines](https://tn-teams.atlassian.net/wiki/spaces/EA/pages/3349774373/Github+Guidelines).
+            ```
+            <change-type>(<optional-scope>): [<jira-ticket>] <description>
+            ```
+            Examples: 
+            ```
+            feat: [ABC-123] implement create audit log endpoint
+            feat(audit): [ABC-123] implement create audit log endpoint
+            chore(audit)!: [ABC-123] implement create audit log endpoint
+            chore(audit)!: [ABC-123-ABC-9876] implement create audit log endpoint
+            ```
+      - action: add-label@v1
+        args:
+          label: "invalid-pr-title"
+          color: {{ colors.red }}
+      - action: add-github-check@v1
+        args:
+          check_name: validation-pr-title
+          conclusion: failure
+
+colors:
+  red: 'b60205'
+  yellow: 'fbca04'
+  green: '0e8a16'
