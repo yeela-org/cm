@@ -1,0 +1,87 @@
+# -*- mode: yaml -*-
+
+manifest:
+  version: 1.0
+
+automations:
+  add_private_topics_label:
+    if:
+      - {{ files | match(regex=r/private-topics/) | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: "private-topics"
+          color: "E94637"
+
+  files_created:
+    if:
+      - {{ source.diff.files | match(attr='original_file', regex=r/^$/) | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: 'files-created'
+          color: '#36A853'
+      - action: add-reviewers@v1
+        args:
+          team_reviewers: [team]
+      - action: require-reviewers@v1
+        args:
+          reviewers: [org/team]
+
+  files_deleted:
+    if:
+      - {{ source.diff.files | match(attr='new_file', term='/dev/null') | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: 'files-deleted'
+          color: '#EB3324'
+      - action: add-reviewers@v1
+        args:
+          team_reviewers: [team]
+      - action: require-reviewers@v1
+        args:
+          reviewers: [org/team]
+
+  {% for client in clients %}
+  approve_owned_nonprod_changes_{{ client.name | lower }}:
+    if:
+      - {{ ( files | match(regex=client.regex) | every ) and ( files | match(regex=r/\/production\//) | nope ) and ( pr.author_teams | intersection(list=client.teams) | some ) }}
+    run:
+      - action: add-label@v1
+        args:
+          label: {{ client.name }}
+      - action: approve@v1
+      - action: add-label@v1
+        args:
+          label: "auto-approved"
+          color: "36A853"
+
+  require_review_{{ client.name | lower }}:
+    if:
+      - {{ not ( ( files | match(regex=client.regex) | every ) and ( files | match(regex=r/\/production\//) | nope ) and ( pr.author_teams | intersection(list=client.teams) | some ) ) }}
+      - {{ files | match(regex=client.regex) | some }}
+    run:
+      - action: add-label@v1
+        args:
+          label: {{ client.name }}
+      - action: add-reviewers@v1
+        args:
+          team_reviewers: [{{ client.teams | join(",") | lower | replace(" - ", "-") | replace(" ", "-") }}]
+      - action: require-reviewers@v1
+        args:
+          reviewers: [{{ "org/" ~ (client.teams | join(",org/")) | lower | replace(" - ", "-") | replace(" ", "-") }}]
+  {% endfor %}
+
+clients:
+- name: "TEAM001"
+  regex: "r/^TEAM001\//"
+  teams:
+    - "Team 001"
+
+...
+
+- name: "TEAM181"
+  regex: "r/^TEAM181\//"
+  teams:
+    - "Team 181"
