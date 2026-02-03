@@ -1,6 +1,10 @@
 manifest:
   version: 1.0
 
+triggers:
+  exclude:
+    branch:
+      - renovate/*
 config:
   admin:
     users: ['yeelali14']
