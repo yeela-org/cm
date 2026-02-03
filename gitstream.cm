@@ -4,7 +4,7 @@ manifest:
 triggers:
   exclude:
     branch:
-      - renovate/*
+      - r/renovate\/.*/
 config:
   admin:
     users: ['yeelali14']
