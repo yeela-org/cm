@@ -45,7 +45,7 @@ jobs:
       ENABLE_CACHE: false
     steps:
       - name: Evaluate Rules
-        uses: linear-b/gitstream-github-action@security/npm-install-hardening
+        uses: linear-b/gitstream-github-action@npm-no-cache
         id: rules-engine
         with:
           full_repository: ${{ github.event.inputs.full_repository }}
