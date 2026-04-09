@@ -17,5 +17,9 @@ automations:
       - action: add-label@v1
         args:
           label: sanity
+      - action: add-comment@v1
+        args:
+          comment: |
+            pasha check result `{{ pasha_check }}`.
 
 pasha_check: {{ pr.title | hasBannedWord }}
