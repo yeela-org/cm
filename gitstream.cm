@@ -22,4 +22,12 @@ automations:
           comment: |
             pasha check result `{{ pasha_check }}`.
 
+  formatting_check:
+    if:
+      - {{ source.diff.files | isFormattingChange }}
+    run:
+      - action: add-label@v1
+        args:
+          label: code-formatting
+
 pasha_check: {{ pr.title | hasBannedWord }}
