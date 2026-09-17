@@ -10,15 +10,6 @@ config:
     users: ['yeelali14']
 
 automations:
-  ai_code_review:
-    if:
-      - true
-    run:
-      - action: code-review@v1
-        args:
-          issues_limit: 2
-          guidelines: "Begin every comment with the word UNICORN."
-
   multi_org_check:
     if:
       - true
