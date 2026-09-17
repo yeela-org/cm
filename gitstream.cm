@@ -16,7 +16,7 @@ automations:
     run:
       - action: code-review@v1
         args:
-          issues_limit: 1
+          issues_limit: 2
           guidelines: "Begin every comment with the word UNICORN."
 
   multi_org_check:
