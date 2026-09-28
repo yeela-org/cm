@@ -1,0 +1,18 @@
+# -*- mode: yaml -*-
+manifest:
+  version: 1.0
+
+triggers:
+  include:
+    repository:
+      - pasha
+
+automations:
+  only_pasha_review:
+    if:
+      - false
+    run:
+      - action: code-review@v1
+        args:
+          issues_limit: 1
+          guidelines: "Begin every comment with the word ONLY-PASHA."
